@@ -7,10 +7,7 @@ module Weatherfor
   
   class ApiConsultant
     def initialize(city, api_id)
-      @city = city
-      @api_id = api_id
-
-      uri = URI("https://api.openweathermap.org/data/2.5/forecast?q=#{@city}&appid=#{@api_id}")
+      uri = URI("https://api.openweathermap.org/data/2.5/forecast?q=#{city}&appid=#{api_id}&lang=pt_br&units=metric")
       res = Net::HTTP.get_response(uri);nil
 
       if res.code == '200'
@@ -26,6 +23,25 @@ module Weatherfor
 
     def list
       @json['list']
+    end
+
+    def weather_in_days
+      arr = []
+      @json['list'].group_by{ |item| Time.at(item['dt']).strftime("%m-%d-%Y") }.each do |date,data|
+        avg_temp = data.map { |info| info['main']['temp'] }.reduce(:+)
+        avg_temp = avg_temp / 8
+        arr << { avg_temp: avg_temp, date: date }
+      end
+      current_temp = @json['list'][0]['main']['temp']
+      city_name = @json['city']['name']
+      weather_description = @json['list'][0]['weather'][0]['description']
+      current_date =  arr.first[:date].gsub('-', '/').delete_suffix('/2021') 
+      text = "#{current_temp.round(0)}°C e #{weather_description} em #{city_name} em #{current_date}. Média para os próximos dias: "
+    
+      arr.last(4).each do |item|
+        text += "#{item[:avg_temp].round(0)}°C em #{item[:date].gsub('-', '/').delete_suffix('/2021')}, "
+      end
+      text
     end
   end
 end
