@@ -5,9 +5,12 @@ require 'json'
 module Weatherfor
   class Error < StandardError; end
   
-  class WhoIs
-    def self.consult_api(city, api_id)
-      uri = URI("https://api.openweathermap.org/data/2.5/forecast?q=#{city}&appid=#{api_id}")
+  class ApiConsultant
+    def initialize(city, api_id)
+      @city = city
+      @api_id = api_id
+
+      uri = URI("https://api.openweathermap.org/data/2.5/forecast?q=#{@city}&appid=#{@api_id}")
       res = Net::HTTP.get_response(uri);nil
 
       if res.code == '200'
@@ -17,14 +20,12 @@ module Weatherfor
       end
     end
 
-    def self.list(city, api_id)
-      self.consult_api(city, api_id)
-      @json['list']
+    def city
+      @json['city']
     end
 
-    def self.city_info(city, api_id)
-      self.consult_api(city, api_id)
-      @json['city']
+    def list
+      @json['list']
     end
   end
 end
