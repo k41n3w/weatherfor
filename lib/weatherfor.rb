@@ -2,5 +2,10 @@ require "weatherfor/version"
 
 module Weatherfor
   class Error < StandardError; end
-  # Your code goes here...
+  
+  class WhoIs
+    def self.awesome?
+      puts "YOU ARE AWESOME!!"
+    end
+  end
 end
