@@ -40,23 +40,18 @@ module Weatherfor
       city_name = @json['city']['name']
       weather_description = @json['list'][0]['weather'][0]['description']
       current_date = arr.first[:date].gsub('-', '/').delete_suffix('/2021')
-      text = "#{current_temp.round(0)}°C e #{weather_description} em #{city_name} em #{current_date}."
-
-      text + " Média para os próximos dias: #{parse_avg_text(arr, text)}"
+      "#{current_temp.round(0)}°C e #{weather_description} em #{city_name} em #{current_date}." \
+        " Média para os próximos dias: #{parse_avg_text(arr)}"
     end
 
     private
 
-    def parse_avg_text(arr, text)
+    def parse_avg_text(arr)
+      text = ''
       arr.last(4).each_with_index do |item, index|
         text += "#{item[:avg_temp].round(0)}°C em #{item[:date].gsub('-', '/').delete_suffix('/2021')}"
-        text += if index < 3
-                  ', '
-                else
-                  '.'
-                end
+        text += index < 3 ? ', ' : '.'
       end
-
       text
     end
   end
