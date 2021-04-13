@@ -1,8 +1,8 @@
 # Weatherfor
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/weatherfor`. To experiment with that code, run `bin/console` for an interactive prompt.
+Welcome to Weatherfor gem! 
 
-TODO: Delete this and the text above, and describe your gem
+The purpose of this Gem is to make API requests to OpenWeatherAPI to query meteorological data to process the average temperature for the next five days.
 
 ## Installation
 
