@@ -22,8 +22,29 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+After you install the gem you'll have access to this methods:
 
+To instance the gem class
+```ruby
+req = Weatherfor::ApiConsultant.new(CityName, OpenWeatherApiKey)
+```
+
+With this initialization you can check the parsed data:
+
+Methodo to consult average temperature in days:
+```ruby
+req.weather_in_days
+```
+
+Method to consult the raw data:
+```ruby
+req.list
+```
+
+Method to consult the city request data:
+```ruby
+req.list
+```
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
@@ -32,7 +53,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/weatherfor.
+Bug reports and pull requests are welcome on GitHub at https://github.com/k41n3w/weatherfor.
 
 
 ## License
