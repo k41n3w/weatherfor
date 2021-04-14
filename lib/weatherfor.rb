@@ -23,7 +23,7 @@ module Weatherfor
     def weather_in_days
       avg_temp_in_days
 
-      "#{current_temp}°C e #{current_temp_desc} em #{city_name} em #{current_date}." \
+      "#{today_avg_temp}°C e #{current_temp_desc} em #{city_name} em #{current_date}." \
         " Média para os próximos dias: #{parse_avg_text}"
     end
 
@@ -31,13 +31,13 @@ module Weatherfor
       @arr = []
       @json['list'].group_by { |item| Time.at(item['dt']).strftime('%m-%d-%Y') }.each do |date, data|
         avg_temp = data.sum { |info| info['main']['temp'] }
-        avg_temp /= 8
+        avg_temp /= data.count
         @arr << { avg_temp: avg_temp, date: date }
       end
     end
 
-    def current_temp
-      @json['list'][0]['main']['temp'].round(0)
+    def today_avg_temp
+      @arr.first[:avg_temp].round(0)
     end
 
     def city_name
@@ -49,13 +49,13 @@ module Weatherfor
     end
 
     def current_date
-      @arr.first[:date].gsub('-', '/').delete_suffix('/2021')
+      Time.now.strftime('%d/%m')
     end
 
     def parse_avg_text
       text = ''
       @arr.last(4).each_with_index do |item, index|
-        text += "#{item[:avg_temp].round(0)}°C em #{item[:date].gsub('-', '/').delete_suffix('/2021')}"
+        text += "#{item[:avg_temp].round(0)}°C em #{parse_date(item[:date])}"
         text += index < 3 ? ', ' : '.'
       end
       text
@@ -67,6 +67,10 @@ module Weatherfor
 
     def list
       @json['list']
+    end
+
+    def parse_date(date)
+      date.gsub('-', '/').delete_suffix('/2021')
     end
 
     def url(city, api_id)
