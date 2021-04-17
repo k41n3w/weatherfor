@@ -9,3 +9,9 @@ gemspec
 gem 'rake', '~> 12.0'
 gem 'rspec', '~> 3.0'
 gem 'rubocop', require: false
+gem 'vcr'
+
+group :test do
+  gem 'simplecov', require: false
+  gem 'webmock'
+end

@@ -9,16 +9,18 @@ module Weatherfor
 
   # Make the API request and parse data
   class ApiConsultant
+    attr_reader :obj
+
     def initialize(city, api_id)
       uri = url(city, api_id)
       res = Net::HTTP.get_response(uri)
 
-      @data = case res.code
-              when '200'
-                JSON.parse(res.body)
-              else
-                { error: res.message }
-              end
+      @obj = case res.code
+             when '200'
+               JSON.parse(res.body)
+             else
+               { error: res.message }
+             end
     end
 
     def weather_in_days
@@ -30,7 +32,7 @@ module Weatherfor
 
     def avg_temp_in_days
       @arr = []
-      @json['list'].group_by { |item| Time.at(item['dt']).strftime('%m-%d-%Y') }.each do |date, data|
+      @obj['list'].group_by { |item| Time.at(item['dt']).strftime('%m-%d-%Y') }.each do |date, data|
         avg_temp = data.sum { |info| info['main']['temp'] }
         avg_temp /= data.count
         @arr << { avg_temp: avg_temp, date: date }
@@ -38,36 +40,32 @@ module Weatherfor
     end
 
     def today_avg_temp
-      @arr.first[:avg_temp].round(0)
+      @obj['list'][0]['main']['temp'].round
     end
 
     def city_name
-      @json['city']['name']
+      @obj['city']['name']
     end
 
     def current_temp_desc
-      @json['list'][0]['weather'][0]['description']
+      @obj['list'][0]['weather'][0]['description']
     end
 
     def current_date
       Time.now.strftime('%d/%m')
     end
 
+    private
+
     def parse_avg_text
       text = ''
-      @arr.last(4).each_with_index do |item, index|
+      @arr.last(5).each_with_index do |item, index|
         text += "#{item[:avg_temp].round(0)}°C em #{parse_date(item[:date])}"
-        text += index < 3 ? ', ' : '.'
+        text += ', ' if index <= 2
+        text += ' e ' if index == 3
+        text += '.' if index == 4
       end
       text
-    end
-
-    def city
-      @json['city']
-    end
-
-    def list
-      @json['list']
     end
 
     def parse_date(date)
