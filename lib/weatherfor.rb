@@ -13,11 +13,12 @@ module Weatherfor
       uri = url(city, api_id)
       res = Net::HTTP.get_response(uri)
 
-      if res.code == '200'
-        @json = JSON.parse res.body
-      else
-        { 'error' => res.message }
-      end
+      @data = case res.code
+              when '200'
+                JSON.parse(res.body)
+              else
+                { error: res.message }
+              end
     end
 
     def weather_in_days
