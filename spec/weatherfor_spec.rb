@@ -23,7 +23,7 @@ RSpec.describe Weatherfor do
 
       it '.weather_in_days' do
         expect(request_api.weather_in_days).to eq(
-          '21°C e chuva leve em Caconde em 17/04. Média para os próximos dias: 19°C em 04/18, 19°C em 04/19, 18°C em 04/20, 18°C em 04/21 e 17°C em 04/22.'
+          "21°C e chuva leve em Caconde em #{Time.now.strftime('%d/%m')}. Média para os próximos dias: 19°C em 04/18, 19°C em 04/19, 18°C em 04/20, 18°C em 04/21 e 17°C em 04/22."
         )
       end
 

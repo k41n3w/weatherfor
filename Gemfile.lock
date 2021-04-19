@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    weatherfor (0.1.3)
+    weatherfor (0.2.1)
 
 GEM
   remote: https://rubygems.org/
