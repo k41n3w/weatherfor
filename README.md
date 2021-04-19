@@ -1,5 +1,7 @@
 # Weatherfor
 
+[![Ruby Gem](https://github.com/k41n3w/weatherfor/actions/workflows/gem-push.yml/badge.svg)](https://github.com/k41n3w/weatherfor/actions/workflows/gem-push.yml)
+
 Welcome to Weatherfor gem! 
 
 The purpose of this Gem is to make API requests to OpenWeatherAPI to query meteorological data to process the average temperature for the next five days.
@@ -36,15 +38,10 @@ Methodo to consult average temperature in days:
 req.weather_in_days
 ```
 
-Method to consult the raw data:
-```ruby
-req.list
-```
+This will bring a message like that:
 
-Method to consult the city request data:
-```ruby
-req.list
-```
+    34°C e nublado em <cidade> em 12/12. Média para os próximos dias: 32°C em 13/12, 25°C em 14/12, 29°C em 15/12, 33°C em 16/12 e 28°C em 16/12.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

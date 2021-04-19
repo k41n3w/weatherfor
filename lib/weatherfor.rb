@@ -32,7 +32,7 @@ module Weatherfor
 
     def avg_temp_in_days
       @arr = []
-      @obj['list'].group_by { |item| Time.at(item['dt']).strftime('%m-%d-%Y') }.each do |date, data|
+      obj['list'].group_by { |item| Time.at(item['dt']).strftime('%m-%d-%Y') }.each do |date, data|
         avg_temp = data.sum { |info| info['main']['temp'] }
         avg_temp /= data.count
         @arr << { avg_temp: avg_temp, date: date }
@@ -40,15 +40,15 @@ module Weatherfor
     end
 
     def today_avg_temp
-      @obj['list'][0]['main']['temp'].round
+      obj['list'][0]['main']['temp'].round
     end
 
     def city_name
-      @obj['city']['name']
+      obj['city']['name']
     end
 
     def current_temp_desc
-      @obj['list'][0]['weather'][0]['description']
+      obj['list'][0]['weather'][0]['description']
     end
 
     def current_date
