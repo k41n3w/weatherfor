@@ -58,7 +58,7 @@ RSpec.describe Weatherfor do
       it '#current_date' do
         expect(request_api.current_date).to be_a(String)
         expect(request_api.current_date).not_to be_nil
-        expect(request_api.current_date).to eq('19/04')
+        expect(request_api.current_date).to eq(Time.now.strftime('%d/%m'))
       end
     end
 

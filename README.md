@@ -1,6 +1,6 @@
 # Weatherfor
 
-[![Ruby Gem](https://github.com/k41n3w/weatherfor/actions/workflows/gem-push.yml/badge.svg)](https://github.com/k41n3w/weatherfor/actions/workflows/gem-push.yml)
+[![Ruby Gem](https://github.com/k41n3w/weatherfor/actions/workflows/gem-push.yml/badge.svg)](https://github.com/k41n3w/weatherfor/actions/workflows/gem-push.yml)  <a href="https://codeclimate.com/github/k41n3w/weatherfor/maintainability"><img src="https://api.codeclimate.com/v1/badges/11442e37d318544985fe/maintainability" /></a>
 
 Welcome to Weatherfor gem! 
 
